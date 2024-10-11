@@ -1,0 +1,44 @@
+create database BD4;
+
+create table funcionarios (
+		cod_func int auto_increment PRIMARY KEY not null,
+        nome varchar(30) not null,
+        especialidade varchar(50) not null
+);
+create table dependente (
+		cod_dep int auto_increment PRIMARY KEY not null,
+        nome varchar(30) not null,
+        cod_func int not null,
+     	foreign key (cod_func) references funcionarios(cod_func)
+);
+
+insert into funcionarios(nome,especialidade)
+	values
+    ("Elizabeti", "Campista"),
+    ("Rudrian", "Raquete"),
+    ("Bolinha", "Mesa");
+    
+insert into dependente(nome, cod_func)
+	values
+    ("Caio",1),
+    ("Julio",1),
+	("Fellipe",3);
+    
+    
+    
+select funcionarios.nome, dependente.nome
+from funcionarios
+inner join dependente
+ON funcionarios.cod_func = dependente.cod_func
+WHERE funcionarios.cod_func = 1;
+
+select funcionarios.nome, dependente.nome
+from funcionarios
+left join dependente
+ON funcionarios.cod_func = dependente.cod_func
+WHERE dependente.nome is null;
+
+select funcionarios.nome, dependente.nome
+from funcionarios
+right join dependente
+ON funcionarios.cod_func = dependente.cod_func;
